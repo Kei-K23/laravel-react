@@ -36,7 +36,7 @@ class PostController extends Controller
             'body' => $request->body
         ]);
 
-        return redirect('/');
+        return redirect("/");
     }
 
     /**
@@ -44,7 +44,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return Inertia::render("Show", [
+            'post' => $post,
+        ]);
     }
 
     /**
@@ -52,7 +54,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return Inertia::render("Edit", [
+            'post' => $post,
+        ]);
     }
 
     /**
@@ -60,7 +64,12 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $post->update([
+            'title' => $request->title,
+            'body' => $request->body
+        ]);
+
+        return redirect("/");
     }
 
     /**
@@ -68,6 +77,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect("/posts");
     }
 }

@@ -1,22 +1,22 @@
 import { router } from "@inertiajs/react";
 import React, { useState } from "react";
 
-export default function Create() {
-    const [post, setPost] = useState({
-        title: "",
-        body: "",
+export default function Edit({ post }) {
+    const [editPost, setEditPost] = useState({
+        title: post.title,
+        body: post.body,
     });
 
     const handleOnChange = (e) => {
-        setPost({
-            ...post,
+        setEditPost({
+            ...editPost,
             [e.target.id]: e.target.value,
         });
     };
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        router.post("/", post);
+        router.put("/", editPost);
     };
     return (
         <div>
@@ -26,7 +26,7 @@ export default function Create() {
                     type="text"
                     id="title"
                     placeholder="Enter the post title"
-                    value={post.title}
+                    value={editPost.title}
                     onChange={handleOnChange}
                 />
                 <label htmlFor="body">Body</label>
@@ -34,7 +34,7 @@ export default function Create() {
                     type="text"
                     id="body"
                     placeholder="Enter the post body"
-                    value={post.body}
+                    value={editPost.body}
                     onChange={handleOnChange}
                 />
                 <button type="submit">Create</button>
